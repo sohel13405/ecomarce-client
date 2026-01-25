@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+/* xshape */
+@keyframes marquee-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Desktop speed */
+.marquee-left {
+  animation: marquee-left 28s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right 28s linear infinite;
+}
+
+/* Pause on hover */
+.group:hover .marquee-left,
+.group:hover .marquee-right {
+  animation-play-state: paused;
+}
+
+/* Mobile speed */
+@media (max-width: 768px) {
+  .marquee-left,
+  .marquee-right {
+    animation-duration: 28s;
+  }
+}
+
+  /* end shape */
+  
