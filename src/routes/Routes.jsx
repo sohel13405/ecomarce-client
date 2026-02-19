@@ -14,6 +14,15 @@ import ManageOrders from "../Dsdhboard/manageOrders/ManageOrders";
 import ManageUsers from "../Dsdhboard/manageUsers/ManageUsers";
 import Profile from "../Dsdhboard/profile/Profile";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import PrivateRoutes from "./privateRoutes/PrivateRoutes";
+import FeaturedSingleProduct from "../components/featured/FeaturedSingleProduct";
+import AdminRoute from "./router/AdminRoute";
+import SelleRoute from "./router/SellerRoute";
+import Statistics from "../Dsdhboard/statistics/Statistics";
+import ManageProduct from "../Dsdhboard/manageProduct/ManageProduct";
+import DashboardRedirect from "../Dsdhboard/DashboardLayout/DashboardRedirect";
+import SingleCategoryPage from "../components/Shared/SingleCategoryPage";
+
  
 export const router = createBrowserRouter([
     {
@@ -23,11 +32,21 @@ export const router = createBrowserRouter([
       children: [
         {
             path: '/',
-            element: <Home></Home>
+            element: <Home></Home>,
+            loader: () => fetch(`${import.meta.env.VITE_API_URL}/products`)
         },
         {
             path: '/about',
             element: <About></About>
+        },
+        {
+            path: '/featuredsingleproduct/:id',
+            element: <FeaturedSingleProduct></FeaturedSingleProduct>,
+            
+        },
+        {
+          path: '/category/:categoryName',
+          element: <SingleCategoryPage></SingleCategoryPage>
         }
       ]
     },
@@ -50,14 +69,38 @@ export const router = createBrowserRouter([
 
     {
         path: "/dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoutes>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoutes>,
         children: [
-          { index: true, element: <DashboardHome /> },
+          {
+            index: true,
+            element: <DashboardRedirect></DashboardRedirect>
+          },
+
           { path: "my-orders", element: <MyOrders /> },
+          
+          { path: 'statistics', element: <PrivateRoutes>
+            <Statistics></Statistics>
+          </PrivateRoutes>},
+
           { path: "become-seller", element: <BecomeSeller /> },
-          { path: "add-product", element: <AddProduct /> },
-          { path: "manage-orders", element: <ManageOrders /> },
-          { path: "manage-users", element: <ManageUsers /> },
+
+          { path: "add-product", element: <SelleRoute>
+            <AddProduct />,
+          </SelleRoute> },
+
+          { path: "manage-orders", element: <SelleRoute>
+            <ManageOrders />
+          </SelleRoute> },
+          {
+            path: 'manage-product', element: <SelleRoute>
+              <ManageProduct></ManageProduct>
+            </SelleRoute>
+          },
+
+          { path: "manage-users", element:<AdminRoute> <ManageUsers /> </AdminRoute>},
+
           { path: "profile", element: <Profile /> },
         ],
       }

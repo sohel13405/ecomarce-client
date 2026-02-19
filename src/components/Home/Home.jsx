@@ -6,6 +6,7 @@ import Xshape from '../xshape/Xshape';
 import CompanyIcons from '../Icons/CompanyIcons';
 import FeaturedProducts from '../featured/FeaturedProducts';
 
+
 const Home = () => {
     return (
         <div>
@@ -15,6 +16,12 @@ const Home = () => {
            </div>
 
            <CategorySlider></CategorySlider>
+
+           <div>
+            <FeaturedProducts></FeaturedProducts>
+        </div>
+
+       
 
            <div>
             <ProductSideBySide></ProductSideBySide>
@@ -28,9 +35,7 @@ const Home = () => {
             <CompanyIcons></CompanyIcons>
         </div>
 
-        <div>
-            <FeaturedProducts></FeaturedProducts>
-        </div>
+        
 
         </div>
     );

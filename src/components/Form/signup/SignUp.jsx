@@ -1,39 +1,97 @@
 
-import  { use } from "react";
+import  { use, useEffect } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router";
+import { imageUpload, saveUserInDb } from "../../../api/utils";
 
 export default function SignUp() {
 
-    const {createUser, setUser} = use(AuthContext)
+    const {createUser, setUser, updateUser, logInWithGoogle, user} = use(AuthContext)
+    const navigate = useNavigate()
 
-    const handleRegister = e =>{
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+
+     useEffect(() => {
+          if (user) {
+            navigate(from, { replace: true });
+          }
+        }, [user, from, navigate]);
+
+    const handleRegister = async e =>{
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
-        const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name,photo,email,password)
+      
 
-        createUser(email,password)
-        .then(result =>{
-            console.log(result)
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your Account Created Successfully",
-              showConfirmButton: false,
-              timer: 1500
-            });
+      const image = form?.image?.files[0];
+             
+          //    image url response from imgbb
+             const imageUrl = await imageUpload(image)
 
-            setUser()
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+
+
+             try {
+              const result = await createUser(email, password);
+              await updateUser(name, imageUrl);
+              setUser(result.user);
+
+              const userData = {
+                name,
+                email,
+                image: imageUrl,
+              }
+              // save user data in db
+              await saveUserInDb(userData)
+
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your Account Created Successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            
+              navigate(from);
+            } catch (error) {
+              console.log(error);
+              Swal.fire("Registration failed");
+            }
 
     }
+
+    // handle Google signIn
+     const handleGoogleSignIn = async () =>{
+          try{
+          const result =  await logInWithGoogle()
+            const userData = {
+              name: result?.user?.displayName,
+              email: result?.user?.email,
+              image: result?.user?.photoURL,
+            };
+            await saveUserInDb(userData);
+            
+         await Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "You logged In Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+          catch(err){
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Login failed",
+              text: err.message,
+            });
+          }
+        }
+
 
 
     return (
@@ -74,10 +132,10 @@ export default function SignUp() {
                 photo url
               </label>
               <input
-                type="text"
-                name="photo"
+                type="file"
+                name="image"
                 required
-                placeholder="photoURL"
+                
                 className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
               />
             </div>
@@ -154,12 +212,10 @@ export default function SignUp() {
   
           {/* Social Signup */}
           <div className="space-y-3">
-            <button className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
+            <button onClick={handleGoogleSignIn}  className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
               Sign up with Google
             </button>
-            <button className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
-              Sign up with GitHub
-            </button>
+           
           </div>
   
           {/* Footer */}

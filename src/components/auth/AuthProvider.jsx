@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase/Firebase.init';
+import axios from 'axios';
+
+const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({children}) => {
 
@@ -23,20 +26,61 @@ const AuthProvider = ({children}) => {
     return signOut(auth)
  }
 
- const updateUser = (updateData) =>{
-    return updateProfile(auth.currentUser,updateData)
+ const logInWithGoogle = () =>{
+   setLoading(true)
+   return signInWithPopup(auth, googleProvider)
+ }
+
+ const updateUser = (name, photo) =>{
+    return updateProfile(auth.currentUser,{
+      displayName: name,
+      photoURL: photo,
+    })
  }
 
 
   useEffect (()=>{
-     const unsubsCribe = onAuthStateChanged(auth, currentUser =>{
+     const unsubsCribe = onAuthStateChanged(auth, async currentUser =>{
         setUser(currentUser)
         setLoading(false)
+      if(currentUser?.email) {
+         const userData = {email: currentUser.email}
+        await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,userData,{
+            withCredentials:true
+         })
+         .then(res =>{
+            console.log(res.data);
+         })
+         .catch(err =>{
+            console.log(err);
+         })
+      }
+
      })
      return () =>{
         unsubsCribe()
      }
   },[])
+
+// useEffect(() => {
+//    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
+//      console.log('CurrentUser-->', currentUser?.email)
+//      if (currentUser?.email) {
+//        setUser(currentUser)
+
+   
+//      } else {
+//        setUser(currentUser)
+//        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+//          withCredentials: true,
+//        })
+//      }
+//      setLoading(false)
+//    })
+//    return () => {
+//      return unsubscribe()
+//    }
+//  }, [])
 
 
 const authInfo = {
@@ -47,7 +91,8 @@ const authInfo = {
     loading,
     setLoading,
     logOut,
-    updateUser
+    updateUser,
+    logInWithGoogle
 
 }
 

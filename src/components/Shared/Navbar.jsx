@@ -4,6 +4,7 @@ import { FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../auth/AuthContext";
 import Swal from "sweetalert2";
+import { UserIcon } from "lucide-react";
 
 
 export default function Navbar() {
@@ -78,6 +79,7 @@ export default function Navbar() {
         {/* Right - Buttons */}
 
            <p>{user && user.email}</p>
+           <img className="w-9" src={user && user.photoURL ? user.photoURL : UserIcon} alt="profile" />
            
 
 

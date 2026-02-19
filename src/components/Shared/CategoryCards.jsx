@@ -1,65 +1,61 @@
+import { Link } from "react-router";
+
 import {
   FaMobileAlt,
   FaLaptop,
-  FaTshirt,
-  FaCouch,
-  FaBasketballBall,
+ 
+  
 } from "react-icons/fa";
+import {  Headphones, Keyboard, Mouse, Router, Speaker, Tv } from "lucide-react";
+import useProductsByCategory from "../../hooks/useProductsByCategory";
+import LoadingSpinner from "./LoadingSpinner";
 
-const categories = [
-  { id: 1, name: "Mobiles", count: 128, icon: <FaMobileAlt size={28} /> },
-  { id: 2, name: "Laptops", count: 76, icon: <FaLaptop size={28} /> },
-  { id: 3, name: "Fashion", count: 245, icon: <FaTshirt size={28} /> },
-  { id: 4, name: "Furniture", count: 58, icon: <FaCouch size={28} /> },
-  { id: 5, name: "Sports", count: 94, icon: <FaBasketballBall size={28} /> },
-  { id: 6, name: "Fashion", count: 245, icon: <FaTshirt size={28} /> },
-  { id: 7, name: "Laptops", count: 76, icon: <FaLaptop size={28} /> },
-  { id: 8, name: "Mobiles", count: 128, icon: <FaMobileAlt size={28} /> },
-];
+const iconMap = {
+  mobile: <FaMobileAlt size={28} />,
+  laptop: <FaLaptop size={28} />,
+  earphone: <Headphones size={28} />,
+  tv: <Tv size={28} />,
+  mouse: <Mouse size={28} />,
+  router: <Router size={28} />,
+  speaker: <Speaker size={28} />,
+  keyboard: <Keyboard size={28}/>
+  
+  
+};
 
-export default function CategoryCards() {
+const CategoryCards = () => {
+  const { data: categories = [], isLoading } = useProductsByCategory();
+
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+
   return (
     <div className="w-full overflow-x-auto">
       <div className="flex gap-4 min-w-max px-2">
-
         {categories.map((cat) => (
-          <div
-            key={cat.id}
+          <Link
+            key={cat._id}
+            to={`/category/${cat._id.toLowerCase()}`}
             className="
               relative min-w-[140px]
               bg-white rounded-xl
               flex flex-col items-center justify-center py-6
-              cursor-pointer
               transition-all duration-300
               hover:bg-black
               group
             "
           >
-            {/* Badge */}
-            {/* <span
-              className="
-                absolute top-2 right-3
-                bg-black text-white text-xs px-2 py-0.5 rounded-full
-                group-hover:bg-white group-hover:text-black
-                transition
-              "
-            >
-              {cat.count}
-            </span> */}
-
-            {/* Icon */}
             <div className="text-black group-hover:text-white mb-2 transition">
-              {cat.icon}
+              {iconMap[cat._id.toLowerCase()] || <FaMobileAlt size={28} />}
             </div>
 
-            {/* Category Name */}
-            <p className="text-sm font-semibold text-black group-hover:text-white transition">
-              {cat.name}
+            <p className="text-sm font-semibold text-black group-hover:text-white transition capitalize">
+              {cat._id}
             </p>
-          </div>
+          </Link>
         ))}
-
       </div>
     </div>
   );
-}
+};
+
+export default CategoryCards;

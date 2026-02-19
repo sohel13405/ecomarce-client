@@ -1,39 +1,91 @@
-import { use } from "react";
+import { use, useEffect } from "react";
 import { AuthContext } from "../../auth/AuthContext";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { saveUserInDb } from "../../../api/utils";
 
 export default function Login() {
 
     const navigate = useNavigate()
-    const {login} = use(AuthContext)
+    const {login, user, logInWithGoogle} = use(AuthContext)
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
 
-    const handleLogin = e =>{
-        e.preventDefault()
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email,password)
+    useEffect(() => {
+      if (user) {
+        navigate(from, { replace: true });
+      }
+    }, [user, from, navigate]);
 
-        login(email,password)
-        .then(result =>{
-            console.log(result)
-            
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "You logged In Successfully",
-              showConfirmButton: false,
-              timer: 1500
-            });
+    const handleLogin = async (e) => {
+      e.preventDefault();
+    
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
+    
+      try {
+        const result = await login(email, password);
+    
+        const userData = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          image: result?.user?.photoURL,
+        };
+    
+        await saveUserInDb(userData);
+    
+        await Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You logged In Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+    
+        // navigate(from, { replace: true });
+    
+      } catch (err) {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Login failed",
+          text: err.message,
+        });
+      }
+    };
 
-            navigate('/')
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+    // handle Google signIn
 
+    const handleGoogleLogIn = async () =>{
+      try{
+      const result =  await logInWithGoogle()
+        const userData = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          image: result?.user?.photoURL,
+        };
+        await saveUserInDb(userData);
+        navigate(from, { replace: true })
+     await Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You logged In Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      catch(err){
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Login failed",
+          text: err.message,
+        });
+      }
     }
+    
+    
 
 
     return (
@@ -108,9 +160,9 @@ export default function Login() {
             <div className="flex-1 h-px bg-gray-300" />
           </div>
   
-          {/* Social Login */}
+          {/* Social Login /google login */}
           <div className="space-y-3">
-            <button className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
+            <button onClick={handleGoogleLogIn} className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
               Continue with Google
             </button>
             {/* <button className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
