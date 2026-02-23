@@ -4,6 +4,8 @@ import { AuthContext } from "../../auth/AuthContext";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router";
 import { imageUpload, saveUserInDb } from "../../../api/utils";
+import Lottie from "lottie-react";
+import animationData from '../../../assets/sign in hover.json'
 
 export default function SignUp() {
 
@@ -95,137 +97,152 @@ export default function SignUp() {
 
 
     return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-200 px-4">
+      <div className=" lg:flex items-center justify-center gap-8 lg:pr-60  p-4 lg:p-20 bg-[#0f232a]">
+
+      <div className="w-fit lg:w-150">
+      <Lottie 
+        animationData={animationData} 
+        loop={true} 
+        autoplay={true} 
+      />
+      </div>
+
+      <div>
+      <div className=" ">
   
-        {/* Signup Card */}
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 my-12">
-  
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">Create Account</h1>
-            <p className="text-gray-500 text-sm">
-              Join us and start your journey
-            </p>
-          </div>
-  
-          {/* Form */}
-          <form onSubmit={handleRegister} className="space-y-5">
-  
-            {/* Name */}
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Enter your full name"
-                className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
-              />
-            </div>
+  {/* Signup Card */}
+  <div className=" w-100  bg-[#e2e2e23a]  rounded-2xl shadow-2xl p-6">
+
+    {/* Header */}
+    <div className="text-center mb-8">
+      <h1 className="text-3xl font-bold mb-2 text-white">Create Account</h1>
+      <p className="text-[#e1dcdc] text-sm">
+        Join us and start your journey
+      </p>
+    </div>
+
+    {/* Form */}
+    <form onSubmit={handleRegister} className="space-y-5">
+
+      {/* Name */}
+      <div>
+        <label className="text-sm font-medium text-white">
+          Full Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          required
+          placeholder="Enter your full name"
+          className="w-full mt-1 px-4 py-3 text-white rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
+        />
+      </div>
 
 
-             {/* photo url  */}
-             <div>
-              <label className="text-sm font-medium text-gray-700">
-                photo url
-              </label>
-              <input
-                type="file"
-                name="image"
-                required
-                
-                className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
-              />
-            </div>
-  
-            {/* Email */}
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email"
-                className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
-              />
-            </div>
-  
-            {/* Password */}
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                required
-                placeholder="Create a password"
-                className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
-              />
-            </div>
+       {/* photo url  */}
+       <div>
+        <label className="text-sm font-medium text-white">
+          photo url
+        </label>
+        <input
+          type="file"
+          name="image"
+          required
+          
+          className="w-full mt-1 px-4 py-3 text-white rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <label className="text-sm font-medium text-white">
+          Email Address
+        </label>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your email"
+          className="w-full mt-1 px-4 py-3 text-white rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
+        />
+      </div>
+
+      {/* Password */}
+      <div>
+        <label className="text-sm font-medium text-white">
+          Password
+        </label>
+        <input
+          type="password"
+          name="password"
+          required
+          placeholder="Create a password"
+          className="w-full mt-1 px-4 py-3 text-white rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
+        />
+      </div>
 
 
-           
-  
-            {/* Confirm Password */}
-            {/* <div>
-              <label className="text-sm font-medium text-gray-700">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                placeholder="Confirm your password"
-                className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
-              />
-            </div> */}
-  
-            {/* Terms */}
-            <div className="flex items-start gap-2 text-sm">
-              <input required type="checkbox" className="mt-1 accent-black" />
-              <p className="text-gray-600">
-                I agree to the{" "}
-                <a href="#" className="font-semibold text-black hover:underline">
-                  Terms & Conditions
-                </a>
-              </p>
-            </div>
-  
-            {/* Button */}
-            <button
-              type="submit"
-              className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition"
-            >
-              Sign Up
-            </button>
-          </form>
-  
-          {/* Divider */}
-          <div className="flex items-center my-6">
-            <div className="flex-1 h-px bg-gray-300" />
-            <span className="px-4 text-sm text-gray-400">OR</span>
-            <div className="flex-1 h-px bg-gray-300" />
-          </div>
-  
-          {/* Social Signup */}
-          <div className="space-y-3">
-            <button onClick={handleGoogleSignIn}  className="w-full py-3 border rounded-xl hover:bg-gray-50 transition">
-              Sign up with Google
-            </button>
-           
-          </div>
-  
-          {/* Footer */}
-          <p className="text-center text-sm text-gray-500 mt-6">
-            Already have an account?{" "}
-            <a href='/auth/login' className="font-semibold text-black hover:underline">
-              Login
-            </a>
-          </p>
-        </div>
+     
+
+      {/* Confirm Password */}
+      {/* <div>
+        <label className="text-sm font-medium text-gray-700">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          placeholder="Confirm your password"
+          className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition"
+        />
+      </div> */}
+
+      {/* Terms */}
+      <div className="flex items-start gap-2 text-sm">
+        <input required type="checkbox" className="mt-1 accent-black" />
+        <p className="text-[#bfb9b9]">
+          I agree to the{" "}
+          <a href="#" className="font-semibold text-white hover:underline">
+            Terms & Conditions
+          </a>
+        </p>
+      </div>
+
+      {/* Button */}
+      <button
+        type="submit"
+        className="w-full py-3 bg-[#769ca9] text-white rounded-xl font-semibold hover:bg-white hover:text-black transition"
+      >
+        Sign Up
+      </button>
+    </form>
+
+    {/* Divider */}
+    <div className="flex items-center my-6">
+      <div className="flex-1 h-px bg-gray-300" />
+      <span className="px-4 text-sm text-gray-400">OR</span>
+      <div className="flex-1 h-px bg-gray-300" />
+    </div>
+
+    {/* Social Signup */}
+    <div className="space-y-3 ">
+      <button onClick={handleGoogleSignIn}  className="w-full text-white py-3 border rounded-xl hover:bg-gray-50 hover:text-black transition">
+        Sign up with Google
+      </button>
+     
+    </div>
+
+    {/* Footer */}
+    <p className="text-center text-sm text-[#cbc5c5] mt-6">
+      Already have an account?{" "}
+      <a href='/auth/login' className="font-semibold text-red-400 hover:underline">
+        Login
+      </a>
+    </p>
+  </div>
+</div>
+      </div>
+
+
       </div>
     );
   }

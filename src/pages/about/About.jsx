@@ -3,18 +3,18 @@ import { FeatureCard } from "../featuredCard/FeatureCard";
 
 export default function About() {
   return (
-    <section className="relative w-full py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
+    <section className="relative w-full py-24 bg-linear-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
 
       {/* Decorative Blur Shapes */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-black/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-black/5 rounded-full blur-3xl"></div>
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#89A8B2] rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#89A8B2] rounded-full blur-3xl"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
 
         {/* Left Content */}
         <div>
-          <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            About <span className="text-black">Our Company</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-[#8e7e22]">
+            About <span className="text-[#68909e]">Our Company</span>
           </h2>
 
           <p className="text-gray-600 text-lg mb-6 leading-relaxed">
@@ -28,13 +28,13 @@ export default function About() {
             to help brands grow faster and smarter in the digital era.
           </p>
 
-          <button className="px-8 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition shadow-lg">
+          <button className="px-8 py-3 bg-[#5f8692] text-white rounded-xl hover:bg-gray-800 transition shadow-lg">
             Learn More
           </button>
         </div>
 
         {/* Right Cards */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6  ">
 
           <FeatureCard
             icon={<FaRocket size={28} />}

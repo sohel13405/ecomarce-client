@@ -48,7 +48,7 @@ export default function CompanyIcons() {
     ];
   
     return (
-      <div className="w-full py-12 bg-white">
+      <div className="w-full py-20 mt-16 bg-[#89A8B2]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-center gap-10 flex-wrap">
   
@@ -73,7 +73,7 @@ export default function CompanyIcons() {
                   alt={company.name}
                   className="
                     max-h-12
-                    grayscale
+                    
                     group-hover:grayscale-0
                     transition
                   "

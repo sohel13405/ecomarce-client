@@ -153,7 +153,7 @@ const CheckOutForm = ({totalPrice, orderData, closeModal, refetch}) => {
   
     if (result?.paymentIntent?.status === "succeeded") {
       try {
-        await axiosSecure.post("/order", {
+        await axiosSecure.post("/orders", {
           ...orderData,
           transactionId: result.paymentIntent.id,
         });

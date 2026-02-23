@@ -145,6 +145,7 @@ const DashboardLayout = () => {
           )}
         </nav>
 
+
         {/* Bottom */}
         <div className="px-3 pb-6 space-y-2 border-t border-white/10">
           <SidebarLink
@@ -164,6 +165,7 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
+      
       <div className="flex-1 flex flex-col">
 
         {/* Top Navbar (Mobile) */}
@@ -176,8 +178,11 @@ const DashboardLayout = () => {
 
         {/* Page Content */}
         <main className="flex-1 p-4 lg:p-6">
+          
           <div className="bg-white rounded-2xl p-4 lg:p-6 min-h-full shadow-sm">
+         
             <Outlet />
+            
           </div>
         </main>
    

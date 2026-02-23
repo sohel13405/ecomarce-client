@@ -15,7 +15,7 @@ const UpdateProductModal = ({ product, closeModal, refreshProducts }) => {
 
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // ✅ Sync product data when modal opens or product changes
+  // Sync product data when modal opens or product changes
   useEffect(() => {
     if (product) {
       setFormData({
@@ -28,7 +28,7 @@ const UpdateProductModal = ({ product, closeModal, refreshProducts }) => {
     }
   }, [product]);
 
-  // ✅ Handle input change
+  // Handle input change
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -36,7 +36,7 @@ const UpdateProductModal = ({ product, closeModal, refreshProducts }) => {
     }));
   };
 
-  // ✅ Handle update
+  // Handle update
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsUpdating(true);

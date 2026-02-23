@@ -5,9 +5,16 @@ import ProductSideBySide from '../Shared/ProductSideBySide';
 import Xshape from '../xshape/Xshape';
 import CompanyIcons from '../Icons/CompanyIcons';
 import FeaturedProducts from '../featured/FeaturedProducts';
+import FeaturedThreeProducts from '../Shared/FeaturedThreeProducts';
+import { useLoaderData } from 'react-router';
+import CustomerReviews from '../featured/CustomerReviews';
+import RecentProducts from '../Shared/RecentProducts';
 
 
 const Home = () => {
+
+    const products = useLoaderData()
+
     return (
         <div>
 
@@ -23,15 +30,25 @@ const Home = () => {
 
        
 
-           <div>
-            <ProductSideBySide></ProductSideBySide>
-           </div>
+           
 
-          <div className=' w-screen mt-10 mb-10'>
+          <div className=' '>
           <Xshape></Xshape>
           </div>
 
-        <div>
+          <div>
+           <FeaturedThreeProducts products={products}></FeaturedThreeProducts>
+           </div>
+
+           <div className=''>
+            <CustomerReviews></CustomerReviews>
+           </div>
+
+           <div>
+            <RecentProducts products={products}></RecentProducts>
+           </div>
+
+        <div className=''>
             <CompanyIcons></CompanyIcons>
         </div>
 

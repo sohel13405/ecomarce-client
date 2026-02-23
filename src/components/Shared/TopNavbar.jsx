@@ -6,21 +6,23 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import CategoryDropdown from "../../pages/CategoryDropdown";
 
 export default function TopNavbar() {
   const [open, setOpen] = useState(false);
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("BDT");
 
   return (
-    <nav className="w-full bg-gray-900 text-white text-sm">
+    <nav className="w-full bg-[#89A8B2] text-white text-sm  sticky top-0">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-12">
 
           {/* Left Links */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center  gap-6">
           <a href='/' className="hover:text-yellow-400">Home</a>
+          <a href={CategoryDropdown} className="hover:text-yellow-400">Category</a>
             <a href='/about' className="hover:text-yellow-400">About</a>
-            <a href="#" className="hover:text-yellow-400">Contact Us</a>
+            <a href='/contactus' className="hover:text-yellow-400">Contact Us</a>
             <a href="#" className="hover:text-yellow-400">Location</a>
             <a href="#" className="hover:text-yellow-400">Help</a>
           </div>
@@ -38,11 +40,12 @@ export default function TopNavbar() {
             {/* Country Flag */}
             <div className="flex items-center gap-2 cursor-pointer">
               <img
-                src="https://flagcdn.com/w20/us.png"
-                alt="USA"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1280px-Flag_of_Bangladesh.svg.png
+"
+                alt="BGD"
                 className="w-5 h-4"
               />
-              <span>USA</span>
+              <span>BD</span>
             </div>
 
             {/* Currency Dropdown */}
@@ -54,7 +57,7 @@ export default function TopNavbar() {
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="BDT">BDT</option>
-              <option value="INR">INR</option>
+              
             </select>
           </div>
 
@@ -74,6 +77,7 @@ export default function TopNavbar() {
             {/* Links */}
             <div className="flex flex-col gap-3">
               <a href='/'>Home</a>
+              <a href='/#'>Category</a>
               <a href='/about'>About</a>
               <a href="#">Contact Us</a>
               <a href="#">Location</a>
@@ -102,7 +106,7 @@ export default function TopNavbar() {
                 <option>USD</option>
                 <option>EUR</option>
                 <option>BDT</option>
-                <option>INR</option>
+                
               </select>
             </div>
           </div>

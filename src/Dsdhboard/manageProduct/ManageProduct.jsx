@@ -5,6 +5,7 @@ import { AuthContext } from "../../components/auth/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import UpdateProductModal from "./UpdateProductModal";
+import { Link } from "react-router";
 
 const ManageProduct = () => {
 
@@ -65,15 +66,20 @@ const ManageProduct = () => {
 
     return (
         <div className="p-6">
+            <div className="flex justify-between ">
             <h2 className="text-2xl font-bold mb-6">Manage Products</h2>
+            <Link to='/'>
+            <button  className="btn flex">BackToHome</button>
+            </Link>
+            </div>
 
             {products.length === 0 ? (
                 <p>No products found</p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="table w-full border">
-                        <thead>
-                            <tr className="bg-gray-100">
+                <div className="max-h-150 overflow-y-auto  ">
+                    <table className="table w-full  ">
+                        <thead className="sticky top-0 bg-white z-10">
+                            <tr className="bg-gray-100 ">
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Price</th>

@@ -22,6 +22,9 @@ import Statistics from "../Dsdhboard/statistics/Statistics";
 import ManageProduct from "../Dsdhboard/manageProduct/ManageProduct";
 import DashboardRedirect from "../Dsdhboard/DashboardLayout/DashboardRedirect";
 import SingleCategoryPage from "../components/Shared/SingleCategoryPage";
+import AllProducts from "../pages/allProducts/AllProducts";
+import ContactUs from "../pages/ContactUs";
+
 
  
 export const router = createBrowserRouter([
@@ -40,10 +43,20 @@ export const router = createBrowserRouter([
             element: <About></About>
         },
         {
+          path: '/contactus',
+          element: <ContactUs></ContactUs>
+        },
+        {
             path: '/featuredsingleproduct/:id',
             element: <FeaturedSingleProduct></FeaturedSingleProduct>,
             
         },
+        {
+          path: 'allproducts',
+          element: <AllProducts></AllProducts>,
+          loader: () => fetch(`${import.meta.env.VITE_API_URL}/products`)
+        },
+       
         {
           path: '/category/:categoryName',
           element: <SingleCategoryPage></SingleCategoryPage>

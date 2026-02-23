@@ -2,32 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
-import { use } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../components/auth/AuthContext";
 
-const MyOrders = ()=> {
-    const {user} = use(AuthContext)
-    const axiosSecure = useAxiosSecure()
+const MyOrders = () => {
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
-  const { data: orders = [], isLoading, refetch } = useQuery({
+  const { data: orders = [], isLoading } = useQuery({
     queryKey: ["orders", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/orders/customer/${user.email}`);
       return res.data;
     },
   });
 
-
-  const handleCancel = async (id) => {
-    try {
-      await axiosSecure.delete(`/orders/${id}`);
-      refetch();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+  if (isLoading) return <LoadingSpinner />;
 
   if (!orders.length) {
     return (
@@ -35,10 +26,7 @@ const MyOrders = ()=> {
         <h2 className="text-2xl font-semibold mb-4">
           No Orders Found
         </h2>
-        <Link
-          to="/"
-          className="btn btn-primary rounded-xl"
-        >
+        <Link to="/" className="btn btn-primary rounded-xl">
           Shop Now
         </Link>
       </div>
@@ -47,13 +35,16 @@ const MyOrders = ()=> {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">
-        My Orders
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl font-bold mb-8">My Orders</h1>
+        <Link to="/">
+          <button className="btn">Back To Home</button>
+        </Link>
+      </div>
 
-      <div className="overflow-x-auto rounded-2xl shadow-md bg-base-100">
+      <div className="max-h-[500px] overflow-y-auto rounded-2xl shadow-md bg-base-100">
         <table className="table w-full">
-          <thead className="bg-base-200 text-base font-semibold">
+          <thead className="bg-base-200 font-semibold sticky top-0 z-10">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -61,7 +52,8 @@ const MyOrders = ()=> {
               <th>Quantity</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Action</th>
+              <th>Order Status</th>
+              <th>Payment</th>
             </tr>
           </thead>
 
@@ -71,13 +63,24 @@ const MyOrders = ()=> {
                 <td>{index + 1}</td>
 
                 <td>
-                  <img className="w-16" src={order.productImage} alt="" />
+                  <img
+                    className="w-16 rounded-lg"
+                    src={order.productImage}
+                    alt=""
+                  />
                 </td>
 
                 <td className="font-semibold text-primary">
-                  ${order.productName}
+                  {order.productName}
                 </td>
 
+                <td>{order.quantity}</td>
+
+                <td>{order.productCategory}</td>
+
+                <td>$ {order.price}</td>
+
+                {/* ORDER STATUS */}
                 <td>
                   <span
                     className={`badge rounded-lg ${
@@ -90,10 +93,11 @@ const MyOrders = ()=> {
                         : "badge-ghost"
                     }`}
                   >
-                    {order.quantity}
+                    {order.status}
                   </span>
                 </td>
 
+                {/* PAYMENT STATUS */}
                 <td>
                   <span
                     className={`badge rounded-lg ${
@@ -102,25 +106,9 @@ const MyOrders = ()=> {
                         : "badge-error"
                     }`}
                   >
-                    {order.productCategory}
+                    {order.paymentStatus}
                   </span>
                 </td>
-
-                <td>
-                  <h1>$ {order.price}</h1>
-                </td>
-
-                <td>
-                  {order.status === "pending" && (
-                    <button
-                      onClick={() => handleCancel(order._id)}
-                      className="btn btn-sm btn-error rounded-lg"
-                    >
-                      Cancel
-                    </button>
-                  )}
-                </td>
-
               </tr>
             ))}
           </tbody>
@@ -128,5 +116,6 @@ const MyOrders = ()=> {
       </div>
     </div>
   );
-}
+};
+
 export default MyOrders;

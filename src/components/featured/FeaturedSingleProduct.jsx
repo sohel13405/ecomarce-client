@@ -42,14 +42,14 @@ if (!product || typeof product !== 'object') return <ErrorPage></ErrorPage>
 
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200 py-16 px-4">
+        <div className="min-h-screen bg-linear-to-br from-base-200 via-base-100 to-base-200 py-16 px-4">
             <div className="max-w-7xl mx-auto">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center bg-base-100/70 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-white/20">
 
                     {/* Image Section */}
                     <div className="relative group">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary blur-3xl opacity-30 group-hover:opacity-50 transition" />
+                        <div className="absolute inset-0 bg-linear-to-tr from-[#89A8B2] to-[#89A8B2] blur-3xl opacity-30 group-hover:opacity-50 transition" />
 
                         <img
                             src={image}
@@ -122,8 +122,8 @@ if (!product || typeof product !== 'object') return <ErrorPage></ErrorPage>
                                     onClick={() => user && setIsOpen(true)}
                                     className={`group relative w-full h-14 rounded-2xl overflow-hidden 
                                     text-white text-lg font-semibold shadow-xl transition
-                                  ${user && user?.email !== seller?.email  && role !== 'admin'? "bg-gradient-to-r from-[#e1dfdf] to-[#707171] hover:scale-[1.02]"
-                                            : "bg-gray-400 cursor-not-allowed opacity-60"
+                                  ${user && user?.email !== seller?.email  && role !== 'admin'? "bg-linear-to-r from-[#e1dfdf] to-[#707171] hover:scale-[1.02]"
+                                            : "bg-[#89A8B2] cursor-not-allowed opacity-60"
                                         }`}
                                 >
                                     <span className="relative flex items-center justify-center gap-3">

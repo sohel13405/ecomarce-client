@@ -36,7 +36,7 @@ const CategoryCards = () => {
             key={cat._id}
             to={`/category/${cat._id.toLowerCase()}`}
             className="
-              relative min-w-[140px]
+              relative min-w-35
               bg-white rounded-xl
               flex flex-col items-center justify-center py-6
               transition-all duration-300
