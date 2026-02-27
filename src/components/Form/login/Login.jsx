@@ -93,9 +93,9 @@ export default function Login() {
 
     return (
       
-      <div className=" flex items-center justify-center gap-14 py-20 bg-[#0f232a]">
+      <div className=" lg:flex items-center justify-center gap-14 p-10 py-20 bg-[#0f232a]">
 
-<div className="w-96">   
+<div className="sm:w-44  lg:w-96">   
    <Lottie 
         animationData={animationData} 
         loop={true} 

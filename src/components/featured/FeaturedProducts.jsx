@@ -4,7 +4,7 @@ import DealsOfTheWeek from "./DealsOfTheWeek";
 
 const FeaturedProducts = () => {
   const products = useLoaderData();
-  console.log(products);
+  
 
   const [activeFilter, setActiveFilter] = useState("onSale");
   const [showAll, setShowAll] = useState(false);
@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
     : filteredProducts.slice(0, 6);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 lg:mt-16 flex flex-col lg:flex-row gap-12 items-center">
+    <div className="max-w-7xl mx-auto px-4 py-10 lg:mt-16 flex flex-col lg:flex-row gap-28 items-center">
 
       {/* 🔥 Left Side */}
       <div className="lg:w-1/3">
@@ -74,7 +74,7 @@ const FeaturedProducts = () => {
               className=" rounded-2xl overflow-hidden  hover:shadow-xl transition group flex flex-col"
             >
               {/* Image */}
-              <Link to={`/featuredsingleproduct/${product._id}`}>
+              <Link to={`/addtocart/${product._id}`}>
               <div className="relative flex items-center justify-center overflow-hidden aspect-square">
                 <img
                   src={product.image}
@@ -105,7 +105,7 @@ const FeaturedProducts = () => {
 
         {/* Show All Button */}
         {filteredProducts.length > 6 && (
-          <div className="text-center mt-8">
+          <div className="text-end mt-8">
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn btn-outline rounded-xl px-8"

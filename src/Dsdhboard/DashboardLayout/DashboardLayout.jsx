@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import useRole from "../../hooks/useRole";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
-import logo from "../../assets/Untitled-1 copy.png";
+import logo from "../../assets/logo.png";
 import {
   FaBars,
   FaClipboardList,
@@ -14,6 +14,7 @@ import {
   FaUser,
   FaUsers,
   FaTimes,
+  FaCartArrowDown,
 } from "react-icons/fa";
 import { SidebarLink } from "../SidebarLink";
 import { AuthContext } from "../../components/auth/AuthContext";
@@ -84,6 +85,13 @@ const DashboardLayout = () => {
           {role === "customer" && (
             <>
               <h1 className="text-xl font-bold mb-6">Customer</h1>
+
+              <SidebarLink
+                open={true}
+                to="/dashboard/cartitems"
+                icon={<FaCartArrowDown />}
+                text="Cart Items"
+              />
 
               <SidebarLink
                 open={true}
@@ -173,7 +181,14 @@ const DashboardLayout = () => {
           <button onClick={() => setOpen(true)}>
             <FaBars size={22} />
           </button>
+
+          <div className="flex items-center  gap-24">
           <h1 className="ml-4 font-semibold">Dashboard</h1>
+          <Link to='/'>
+          <button className="btn">Back to home</button>
+          </Link>
+          </div>
+
         </div>
 
         {/* Page Content */}

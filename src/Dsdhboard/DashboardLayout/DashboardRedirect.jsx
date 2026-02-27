@@ -18,7 +18,7 @@ const DashboardRedirect = () => {
   }
 
   if (role === "customer") {
-    return <Navigate to="/dashboard/my-orders" replace />;
+    return <Navigate to="/dashboard/cartitems" replace />;
   }
 
   return null;

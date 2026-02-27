@@ -38,11 +38,11 @@ const MyOrders = () => {
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-8">My Orders</h1>
         <Link to="/">
-          <button className="btn">Back To Home</button>
+          <button className="btn hidden lg:block">Back To Home</button>
         </Link>
       </div>
 
-      <div className="max-h-[500px] overflow-y-auto rounded-2xl shadow-md bg-base-100">
+      <div className="max-h-125 overflow-y-auto rounded-2xl shadow-md bg-base-100">
         <table className="table w-full">
           <thead className="bg-base-200 font-semibold sticky top-0 z-10">
             <tr>

@@ -1,94 +1,73 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
 import { ChevronDown } from "lucide-react";
-import {
-  FaMobileAlt,
-  FaLaptop,
-} from "react-icons/fa";
-import {
-  Headphones,
-  Keyboard,
-  Mouse,
-  Router,
-  Speaker,
-  Tv,
-} from "lucide-react";
 import useProductsByCategory from "../hooks/useProductsByCategory";
 import LoadingSpinner from "../components/Shared/LoadingSpinner";
 
 
-
-const iconMap = {
-  mobile: <FaMobileAlt size={22} />,
-  laptop: <FaLaptop size={22} />,
-  earphone: <Headphones size={22} />,
-  tv: <Tv size={22} />,
-  mouse: <Mouse size={22} />,
-  router: <Router size={22} />,
-  speaker: <Speaker size={22} />,
-  keyboard: <Keyboard size={22} />,
-};
-
 const CategoryDropdown = () => {
   const { data: categories = [], isLoading } = useProductsByCategory();
   const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      {/* Button */}
-      <button className="flex items-center gap-2 font-semibold text-gray-700 hover:text-black transition">
-        Categories
-        <ChevronDown size={18} />
+    <div className="relative" ref={dropdownRef}>
+      
+      {/* CLICKABLE BUTTON */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 hover:text-yellow-400"
+      >
+        Category
+        <ChevronDown size={16} />
       </button>
 
-      {/* Dropdown */}
+      {/* DROPDOWN */}
       {open && (
-        <div
-          className="
-            absolute left-0 top-full mt-3
-            w-[900px] max-w-[95vw]
-            bg-white shadow-2xl
-            rounded-2xl p-8
-            grid grid-cols-2 md:grid-cols-3 gap-8
-            z-50 border
-          "
-        >
+        <div className="absolute top-full left-0 mt-3 w-200 max-w-[95vw] bg-white text-black rounded-xl shadow-2xl p-6 z-50 grid grid-cols-2 md:grid-cols-3 gap-6">
+
           {categories.map((cat) => (
             <div key={cat._id}>
-              {/* Main Category */}
               <Link
                 to={`/category/${cat._id}`}
-                className="flex items-center gap-2 font-bold text-gray-800 hover:text-black mb-3"
+                onClick={() => setOpen(false)}
+                className="font-bold hover:text-blue-600 block mb-2 capitalize"
               >
-                <span className="text-gray-600">
-                  {iconMap[cat._id?.toLowerCase()] || (
-                    <FaMobileAlt size={20} />
-                  )}
-                </span>
-                <span className="capitalize">{cat._id}</span>
+                {cat._id}
               </Link>
 
-              {/* Subcategories (SAFE CHECK) */}
-              <div className="flex flex-col gap-2 ml-6">
-                {Array.isArray(cat.subcategories) &&
-                  cat.subcategories.map((sub, i) => (
+              {Array.isArray(cat.subcategories) && (
+                <div className="ml-4 flex flex-col gap-1">
+                  {cat.subcategories.map((sub, i) => (
                     <Link
                       key={i}
                       to={`/category/${cat._id}?sub=${sub}`}
-                      className="text-sm text-gray-500 hover:text-black transition capitalize"
+                      onClick={() => setOpen(false)}
+                      className="text-sm text-gray-600 hover:text-black capitalize"
                     >
                       {sub}
                     </Link>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           ))}
+
         </div>
       )}
     </div>

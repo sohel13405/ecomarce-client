@@ -99,7 +99,7 @@ export default function SignUp() {
     return (
       <div className=" lg:flex items-center justify-center gap-8 lg:pr-60  p-4 lg:p-20 bg-[#0f232a]">
 
-      <div className="w-fit lg:w-150">
+      <div className="w-fit lg:w-150 ">
       <Lottie 
         animationData={animationData} 
         loop={true} 
@@ -108,10 +108,10 @@ export default function SignUp() {
       </div>
 
       <div>
-      <div className=" ">
+      <div className=" p-3 ">
   
   {/* Signup Card */}
-  <div className=" w-100  bg-[#e2e2e23a]  rounded-2xl shadow-2xl p-6">
+  <div className=" lg:w-100  bg-[#e2e2e23a]  rounded-2xl shadow-2xl p-10">
 
     {/* Header */}
     <div className="text-center mb-8">

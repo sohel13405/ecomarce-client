@@ -6,7 +6,6 @@ import Login from "../components/Form/login/Login";
 import SignUp from "../components/Form/signup/SignUp";
 import About from "../pages/about/About";
 import DashboardLayout from "../Dsdhboard/DashboardLayout/DashboardLayout";
-import DashboardHome from "../Dsdhboard/DashboardHome/DashboardHome";
 import MyOrders from "../Dsdhboard/myOrders/MyOrders";
 import BecomeSeller from "../Dsdhboard/becomeSeller/BecomeSeller";
 import AddProduct from "../Dsdhboard/addProduct/AddProduct";
@@ -24,6 +23,11 @@ import DashboardRedirect from "../Dsdhboard/DashboardLayout/DashboardRedirect";
 import SingleCategoryPage from "../components/Shared/SingleCategoryPage";
 import AllProducts from "../pages/allProducts/AllProducts";
 import ContactUs from "../pages/ContactUs";
+import AddToCart from "../components/featured/AddToCart";
+import LoadingSpinner from "../components/Shared/LoadingSpinner";
+import CartItems from "../Dsdhboard/myOrders/cartItems/CartItems";
+import Products from "../pages/allProducts/Products";
+
 
 
  
@@ -32,6 +36,7 @@ export const router = createBrowserRouter([
       path: "/",
       element: <MainLayouts></MainLayouts>,
       errorElement: <ErrorPage></ErrorPage>,
+      hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>,
       children: [
         {
             path: '/',
@@ -52,9 +57,17 @@ export const router = createBrowserRouter([
             
         },
         {
+          path: '/addtocart/:id',
+          element: <AddToCart></AddToCart>,
+        },
+        {
           path: 'allproducts',
           element: <AllProducts></AllProducts>,
           loader: () => fetch(`${import.meta.env.VITE_API_URL}/products`)
+        },
+        {
+          path: 'products',
+          element: <Products></Products>
         },
        
         {
@@ -92,6 +105,9 @@ export const router = createBrowserRouter([
           },
 
           { path: "my-orders", element: <MyOrders /> },
+          {
+            path: 'cartitems', element: <CartItems></CartItems>
+          },
           
           { path: 'statistics', element: <PrivateRoutes>
             <Statistics></Statistics>

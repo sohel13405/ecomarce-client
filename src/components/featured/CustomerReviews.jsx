@@ -58,7 +58,7 @@ export default function CustomerReviews() {
     <section className="max-w-7xl mx-auto px-4 py-14 mt-20 relative">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">
+        <h2 className="text-3xl font-bold text-[#698d9a]">
           What Our Customers Say
         </h2>
 

@@ -2,11 +2,11 @@ import { Link } from "react-router";
 
 export default function Xshape() {
   return (
-    <div className="relative h-screen w-full bg-white overflow-hidden">
+    <div className="relative h-120 w-full bg-white overflow-hidden">
 
       {/* CENTER CONTENT */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center gap-36">
-        <h1 className="text-4xl md:text-6xl text-[#6e97a5] font-bold mb-6">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center gap-56">
+        <h1 className="text-7xl font-extrabold bg-linear-to-r from-pink-500 via-yellow-500 to-purple-500 bg-clip-text text-transparent animate-gradient">
           BIG SALE
         </h1>
 

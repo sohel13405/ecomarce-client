@@ -122,7 +122,7 @@ if (!product || typeof product !== 'object') return <ErrorPage></ErrorPage>
                                     onClick={() => user && setIsOpen(true)}
                                     className={`group relative w-full h-14 rounded-2xl overflow-hidden 
                                     text-white text-lg font-semibold shadow-xl transition
-                                  ${user && user?.email !== seller?.email  && role !== 'admin'? "bg-linear-to-r from-[#e1dfdf] to-[#707171] hover:scale-[1.02]"
+                                  ${user && user?.email !== seller?.email  && role !== 'admin'? "bg-[#89A8B2] hover:scale-[1.02]"
                                             : "bg-[#89A8B2] cursor-not-allowed opacity-60"
                                         }`}
                                 >

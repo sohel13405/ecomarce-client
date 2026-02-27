@@ -52,7 +52,7 @@ const AllProducts = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-44 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-44  object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
                 {/* Floating Icons */}
@@ -102,7 +102,7 @@ const AllProducts = () => {
               </p>
 
               {/* View Details Button */}
-             <Link to={`/featuredsingleproduct/${product._id}`}>
+             <Link to={`/addtocart/${product._id}`}>
              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

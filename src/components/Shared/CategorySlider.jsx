@@ -34,7 +34,7 @@ const Slide = () => {
       id: 1,
       title: "Big Deals. Bigger Savings.",
       subtitle: "Shop top-quality electronics at unbeatable prices. Limited-time offers, exclusive discounts, and the newest arrivals — only at ShopeCove.",
-      img: "https://i.ibb.co.com/Y524rn6/1771612636691-019c7c57-3cd9-761d-be78-9dad3ce7b034.png",
+      img: "https://i.ibb.co.com/G47bYFVM/02.png",
       ctaText: "See All Products",
       // ctaHref: "/courses",
     },
@@ -43,7 +43,7 @@ const Slide = () => {
       title: "Upgrade Your Everyday Tech",
       subtitle:
         "Discover the latest smartphones, laptops, cameras, and accessories — carefully selected to bring innovation, style, and performance into your life",
-      img: "https://i.ibb.co.com/67W35h5d/1771612234510-019c7c50-c422-742d-acc1-56a48dfcb86d.png",
+      img: "https://i.ibb.co.com/DHv9Qn76/01.png",
       ctaText: "All Products",
       // ctaHref: "/register",
     },
@@ -52,7 +52,7 @@ const Slide = () => {
       title: "Smart Choices Start Here",
       subtitle:
         "From cutting-edge gadgets to must-have accessories, find everything you need in one seamless shopping experience.",
-      img: "https://i.ibb.co.com/84mHFx6F/1771612456971-019c7c54-a92d-7dcf-94d4-900ea2430ff3.png",
+      img: "https://i.ibb.co.com/4nnc5s7V/3.jpg",
       ctaText: "Products",
       // ctaHref: "/dashboard",
     },
@@ -60,7 +60,7 @@ const Slide = () => {
       id: 4,
       title: "Mega Tech Sale Is Live",
       subtitle: "Save up to 50% on premium electronics. Don’t miss out — upgrade your gear today with ShopeCove’s hottest deals.",
-      img: "https://i.ibb.co.com/v4FZgSQB/1771612529679-019c7c55-7b6e-7120-97b1-963a813c5cac.png",
+      img: "https://i.ibb.co.com/dJ1hXwFL/5.webp",
       ctaText: "Browse Products",
       // ctaHref: "/courses",
     },
@@ -69,7 +69,7 @@ const Slide = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -100,7 +100,7 @@ const Slide = () => {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id}>
-            <div className="relative w-full h-fit lg:h-150 ">
+            <div className="relative w-full h-60 lg:h-150 ">
               {/* Background Image */}
               <img
                 src={slide.img}
@@ -124,7 +124,7 @@ const Slide = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.3 }}
-                  className="text-lg md:text-xl text-[#ffffffa9] mb-6 max-w-2xl"
+                  className="hidden lg:block text-lg md:text-xl text-[#ffffffa9] mb-6 max-w-2xl"
                 >
                   {slide.subtitle}
                 </motion.p>

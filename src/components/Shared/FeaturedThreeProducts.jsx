@@ -20,7 +20,7 @@ const FeaturedThreeProducts = ({ products }) => {
               </p>
 
               <Link
-                to={`/featuredsingleproduct/${product._id}`}
+                to={`/addtocart/${product._id}`}
                 className="inline-block w-fit px-4 py-2 bg-[#6692a1] text-white text-sm rounded-lg hover:bg-[#9ab9c4] transition"
               >
                 Details

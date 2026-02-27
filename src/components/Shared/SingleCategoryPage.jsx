@@ -69,8 +69,8 @@ const SingleCategoryPage = () => {
                     ${product.price}
                   </span>
 
-                 <Link to={`/featuredsingleproduct/${product._id}`}>
-                 <button className="px-4 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800 transition">
+                 <Link to={`/addtocart/${product._id}`}>
+                 <button className="px-4 py-2 bg-[#89A8B2] text-white rounded-lg text-sm hover:bg-[#607c85] transition">
                     View
                   </button>
                  </Link>
